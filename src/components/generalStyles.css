@@ -1,0 +1,11 @@
+.form_product_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_producto {
+    width: 100%;
+    max-width: 500px;
+}
