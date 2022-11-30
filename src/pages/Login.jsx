@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Registro from "./Registro";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/axiosInstance";
+import { UserContext } from "../context/UserContext";
+import { loginUser } from "../context/UserActions";
 
 
 const Login = () => {
+  const { state, dispatch } = useContext(UserContext);
+  console.log(state)
   const {
     register,
     handleSubmit,
@@ -14,17 +18,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const sendLogin = async (data) => {
-    console.log(data);
-    try {
-      const login = await axiosInstance.post(
-        "/users/login",
-        data
-      );
-      localStorage.setItem("token", login.data.token);
-      navigate("/dashboard");
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(loginUser(data, navigate))
+  
   };
   return (
     <form onSubmit={handleSubmit(sendLogin)}>

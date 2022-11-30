@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { createProducts } from "../context/UserActions";
+import { UserContext } from "../context/UserContext";
 import './generalStyles.css'
 
-import { crearProducto } from "../helpers/helpers";
 
 const FormProducto = () => {
 const [dataForm, setDataForm] = useState({})
 const [imgFile, setImgFile] = useState([]);
+const {dispatch} = useContext(UserContext)
 
 const handleChange = (e) => {
     setDataForm({
@@ -28,7 +31,7 @@ const handleSubmit = async (e) => {
     formData.append('imagen', imgFile[0]);
     formData.append("categoria", dataForm.categoria);
     formData.append("stock", dataForm.stock);
-    crearProducto(formData)
+    createProducts(formData, dispatch)
 }
 
   return (
